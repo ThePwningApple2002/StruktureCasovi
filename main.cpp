@@ -7,11 +7,38 @@ int main()
 	Node* s3 = new Node(3);
 	Node* s4 = new Node(4);
 	LancanaLista* L = new LancanaLista(s1);
-	L->Add(s2);
-	L->Add(s3);
-	L->Add(s4);
+
+	L->AddToHead(s2);
+	L->AddToHead(s3);
+	L->AddToHead(s4);
+
+	// L->Print();
+	// int sum = L->Sum();
+	// cout << "Sum of even numbers: " << sum << endl;
+	
+	// Node* k = new Node(10);
+	// L->AddToTail(k);
+	// L->Print();
+
+	// L->DeleteElem(2);
+	// L->Print();
+
+	// Node* j = new Node(14);
+
+	// L->InstertElem(1, j);
+	// L->Print();
+	Node* s11 = new Node(11);
+	Node* s22 = new Node(22);
+	Node* s33 = new Node(33);
+	Node* s44 = new Node(44);
+	L->AddToHead(s11);
+	L->AddToHead(s22);
+	L->AddToHead(s33);
+	L->AddToHead(s44);
+	// L->Print();
+	// L->Swap(22, 1);
 	L->Print();
-	int sum = L->Sum();
-	cout << "Sum of even numbers: " << sum << endl;
+	L->DeleteFromStartToHead(22, 3);
+	L->Print();
 	return 0;
 }
