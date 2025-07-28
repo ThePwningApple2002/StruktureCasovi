@@ -18,5 +18,6 @@ public:
 	bool Swap(int start, int end);
 	bool MoveToHead(int start, int end);
 	bool DeleteFromStartToHead(int start, int end);
+	void groupSegment(int k);
 	void Print();
 };

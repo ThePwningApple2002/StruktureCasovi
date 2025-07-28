@@ -1,5 +1,6 @@
 #include "LancanaLista.h"
 #include <iostream>
+using namespace std;
 int LancanaLista::Sum()
 {
 	int s = 0;
@@ -218,8 +219,64 @@ bool LancanaLista::DeleteFromStartToHead(int start, int end){
 	return false;
 
 }
+void LancanaLista::groupSegment(int k) {
+    if (k <= 0) {
+        throw "Duzina segmenta (k) mora biti pozitivan broj.";
+    }
+    if (head == nullptr) {
+        return;
+    }
 
+    Node* krajSablonSegmenta = head;
+    for (int i = 1; i < k; ++i) {
+        if (krajSablonSegmenta->next == nullptr) {
+            return;
+        }
+        krajSablonSegmenta = krajSablonSegmenta->next;
+    }
 
+    Node* prev = krajSablonSegmenta;
+    Node* current = prev->next;
+
+    while (current != nullptr) {
+        bool match = true;
+        Node* pSablon = head;       
+        Node* pSegment = current;   
+
+        Node* proveraDovoljnoCvorova = current;
+        for (int i = 0; i < k; ++i) {
+            if (proveraDovoljnoCvorova == nullptr) {
+                return;
+            }
+            proveraDovoljnoCvorova = proveraDovoljnoCvorova->next;
+        }
+
+        for (int i = 0; i < k; ++i) {
+            if (pSablon->vr != pSegment->vr) {
+                match = false; 
+                break;
+            }
+            pSablon = pSablon->next;
+            pSegment = pSegment->next;
+        }
+
+        if (match) {
+            prev->next = pSegment;
+
+            Node* zaBrisanje = current;
+            while (zaBrisanje != pSegment) {
+                Node* sledeci = zaBrisanje->next;
+                delete zaBrisanje;
+                zaBrisanje = sledeci;
+            }
+            
+            current = pSegment;
+        } else {
+            prev = current;
+            current = current->next;
+        }
+    }
+}
 
 void LancanaLista::Print()
 {

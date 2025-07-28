@@ -27,18 +27,22 @@ int main()
 
 	// L->InstertElem(1, j);
 	// L->Print();
-	Node* s11 = new Node(11);
-	Node* s22 = new Node(22);
-	Node* s33 = new Node(33);
-	Node* s44 = new Node(44);
+	Node* s11 = new Node(1);
+	Node* s22 = new Node(1);
+	Node* s33 = new Node(2);
+	Node* s44 = new Node(3);
+	Node* s55 = new Node(5);
 	L->AddToHead(s11);
 	L->AddToHead(s22);
 	L->AddToHead(s33);
 	L->AddToHead(s44);
+	L->AddToTail(s55);
 	// L->Print();
 	// L->Swap(22, 1);
+	// L->Print();
+	// L->DeleteFromStartToHead(22, 3);
 	L->Print();
-	L->DeleteFromStartToHead(22, 3);
+	L->groupSegment(3);
 	L->Print();
 	return 0;
 }
