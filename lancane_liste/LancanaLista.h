@@ -18,6 +18,11 @@ public:
 	bool Swap(int start, int end);
 	bool MoveToHead(int start, int end);
 	bool DeleteFromStartToHead(int start, int end);
+	void deleteParts(LancanaLista* list2, int k);
 	void groupSegment(int k);
+	LancanaLista* SplitOrMove();
 	void Print();
+	void min();
+	void InjectorRemove(int br);
+	void fillmissingitems();
 };

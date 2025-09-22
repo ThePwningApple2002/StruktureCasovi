@@ -219,63 +219,71 @@ bool LancanaLista::DeleteFromStartToHead(int start, int end){
 	return false;
 
 }
-void LancanaLista::groupSegment(int k) {
-    if (k <= 0) {
-        throw "Duzina segmenta (k) mora biti pozitivan broj.";
-    }
-    if (head == nullptr) {
-        return;
+
+
+
+LancanaLista* LancanaLista::SplitOrMove() {
+    LancanaLista* novaLista = new LancanaLista();
+    if (this->head == nullptr) {
+        return novaLista;
     }
 
-    Node* krajSablonSegmenta = head;
-    for (int i = 1; i < k; ++i) {
-        if (krajSablonSegmenta->next == nullptr) {
-            return;
-        }
-        krajSablonSegmenta = krajSablonSegmenta->next;
-    }
-
-    Node* prev = krajSablonSegmenta;
-    Node* current = prev->next;
+    Node* novaListaTail = nullptr;
+    Node* prev = nullptr;
+    Node* current = this->head;
 
     while (current != nullptr) {
-        bool match = true;
-        Node* pSablon = head;       
-        Node* pSegment = current;   
+        bool duplicateFound = false;
+        Node* runner_prev = current;
+        Node* runner = current->next;
 
-        Node* proveraDovoljnoCvorova = current;
-        for (int i = 0; i < k; ++i) {
-            if (proveraDovoljnoCvorova == nullptr) {
-                return;
-            }
-            proveraDovoljnoCvorova = proveraDovoljnoCvorova->next;
-        }
+        while (runner != nullptr) {
+            if (runner->vr == current->vr) {
+                duplicateFound = true;
+                
+                runner_prev->next = runner->next;
+                Node* nodeToMove = runner;
 
-        for (int i = 0; i < k; ++i) {
-            if (pSablon->vr != pSegment->vr) {
-                match = false; 
+                nodeToMove->next = nullptr;
+                if (novaLista->head == nullptr) {
+                    novaLista->head = nodeToMove;
+                    novaListaTail = nodeToMove;
+                } else {
+                    novaListaTail->next = nodeToMove;
+                    novaListaTail = nodeToMove;
+                }
+                
                 break;
             }
-            pSablon = pSablon->next;
-            pSegment = pSegment->next;
+            runner_prev = runner;
+            runner = runner->next;
         }
 
-        if (match) {
-            prev->next = pSegment;
-
-            Node* zaBrisanje = current;
-            while (zaBrisanje != pSegment) {
-                Node* sledeci = zaBrisanje->next;
-                delete zaBrisanje;
-                zaBrisanje = sledeci;
-            }
-            
-            current = pSegment;
-        } else {
+        if (duplicateFound) {
             prev = current;
             current = current->next;
+        } else {
+            Node* nodeToMove = current;
+            current = current->next;
+
+            if (prev == nullptr) {
+                this->head = current;
+            } else {
+                prev->next = current;
+            }
+
+            nodeToMove->next = nullptr;
+            if (novaLista->head == nullptr) {
+                novaLista->head = nodeToMove;
+                novaListaTail = nodeToMove;
+            } else {
+                novaListaTail->next = nodeToMove;
+                novaListaTail = nodeToMove;
+            }
         }
     }
+
+    return novaLista;
 }
 
 void LancanaLista::Print()
@@ -287,3 +295,111 @@ void LancanaLista::Print()
 	}
 	printf("\n");
 }
+
+void LancanaLista::min()
+{
+	if(head==nullptr){
+		return;
+	}
+	Node* tmp=head;
+	Node* min=head;
+	Node* prev=nullptr;
+	while(tmp->next!=nullptr)
+	{
+		if(min->vr>tmp->next->vr){
+			prev=tmp;
+			min=tmp->next;
+		}
+		tmp=tmp->next;
+	}
+	prev->next=min->next;
+	min->next=head;
+	head=min;
+
+}
+void LancanaLista::InjectorRemove(int br){
+	if(head==nullptr)
+		return;
+	if(head->vr==br){
+		Node* pom=head;
+		head=head->next;
+		delete pom;
+	}
+	Node* tmp=head;
+	Node* prev;
+	while(tmp!=nullptr){
+		if(tmp->vr==br){
+			prev->next=tmp->next;
+			delete tmp;
+			return ;
+		}
+		else if(tmp->vr>br){
+			cout<<tmp->vr;
+			Node* tmp2=new Node(br);
+			tmp2->next=tmp;
+			prev->next=tmp2;
+			return ;
+		}
+		prev=tmp;
+		tmp=tmp->next;
+	}
+	
+	
+}
+
+void LancanaLista::fillmissingitems()
+{
+	if(head==nullptr){
+		Node* tmp1=new Node(0);
+		head=tmp1;
+	}
+	if(head->next==nullptr)
+	{
+		Node* tmp1=new Node(1);
+		head->next=tmp1;
+	}
+	Node* prev;
+	Node* cur=head;
+	for(int i=1;i<101;i++){
+		if(cur->vr==i){
+			cout<<i<<" prvi if"<<endl;
+			prev=cur;
+			cur=cur->next;
+			continue;
+		}
+		if(cur->vr>i ){
+			cout<<endl;
+			cout<<cur->vr;
+			cout<<endl;
+			cout<<i;
+			cout<<endl;
+			Node* tmp2=new Node(i);
+			tmp2->next=cur;
+			prev->next=tmp2;
+			cur=tmp2->next;
+			prev=tmp2;
+		}
+		else if(cur->next==nullptr)
+		{
+			cout<<i<<" treci if"<<endl;
+			cur->next=new Node(i);
+			prev=cur;
+
+			cur=cur->next;
+		}
+		else{
+			prev=cur;
+			cur=cur->next;
+		}
+	}
+	prev->next=nullptr;//posle 100 null
+	while(cur!=nullptr){
+		Node* pom=cur;
+		cur=cur->next;
+		delete pom;
+	}
+
+
+
+}
+

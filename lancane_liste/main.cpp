@@ -6,11 +6,11 @@ int main()
 	Node* s2 = new Node(2);
 	Node* s3 = new Node(3);
 	Node* s4 = new Node(4);
-	LancanaLista* L = new LancanaLista(s1);
+	LancanaLista* L = new LancanaLista();
 
-	L->AddToHead(s2);
-	L->AddToHead(s3);
-	L->AddToHead(s4);
+	// L->AddToHead(s2);
+	// L->AddToHead(s3);
+	// L->AddToHead(s4);
 
 	// L->Print();
 	// int sum = L->Sum();
@@ -27,22 +27,39 @@ int main()
 
 	// L->InstertElem(1, j);
 	// L->Print();
-	Node* s11 = new Node(1);
 	Node* s22 = new Node(1);
 	Node* s33 = new Node(2);
 	Node* s44 = new Node(3);
 	Node* s55 = new Node(5);
-	L->AddToHead(s11);
-	L->AddToHead(s22);
-	L->AddToHead(s33);
+	L->AddToHead(s55);
 	L->AddToHead(s44);
-	L->AddToTail(s55);
+	L->AddToHead(s33);
+	L->AddToHead(s22);
+	// L->AddToTail(s55);
+	// // L->Print();
+	// // L->Swap(22, 1);
+	// // L->Print();
+	// // L->DeleteFromStartToHead(22, 3);
 	// L->Print();
-	// L->Swap(22, 1);
-	// L->Print();
-	// L->DeleteFromStartToHead(22, 3);
+	
+	// LancanaLista* listica = L->SplitOrMove();
+	// listica->Print();
+	
+	Node* LL=new Node(222);
+	Node* LLL=new Node(333);
+	Node* LLLL=new Node(444);
+	Node* LL1=new Node(555);
+	Node* LL2=new Node(666);
+	L->AddToTail(LL);
+	L->AddToTail(LLL);
+	L->AddToTail(LLLL);
+	L->AddToTail(LL1);
+	L->AddToTail(LL2);
 	L->Print();
-	L->groupSegment(3);
+	L->fillmissingitems();
 	L->Print();
+	
+	
+
 	return 0;
 }
